@@ -9,8 +9,7 @@ import store from '@/store/index'
 
 // 菜单和路由设置
 import router from './router'
-import menuHeader from '@/menu/header'
-import menuAside from '@/menu/aside'
+import { menuHeader, menuAside } from '@/menu'
 import { frameInRoutes } from '@/router/routes'
 
 // 核心插件
@@ -27,7 +26,7 @@ new Vue({
     // 设置顶栏菜单
     this.$store.commit('d2admin/menu/headerSet', menuHeader)
     // 设置侧边栏菜单
-    this.$store.commit('d2admin/menu/asideSet', menuAside)
+    // this.$store.commit('d2admin/menu/asideSet', menuAside)
     // 初始化菜单搜索功能
     this.$store.commit('d2admin/search/init', menuHeader)
   },
@@ -40,5 +39,17 @@ new Vue({
     this.$store.commit('d2admin/ua/get')
     // 初始化全屏监听
     this.$store.dispatch('d2admin/fullscreen/listen')
+  },
+  watch: {
+    // 检测路由变化切换侧边栏内容
+    '$route.matched': {
+      handler (matched) {
+        if (matched.length > 0) {
+          const _side = menuAside.filter(menu => menu.path === matched[0].path)
+          this.$store.commit('d2admin/menu/asideSet', _side.length > 0 ? _side[0].children : [])
+        }
+      },
+      immediate: true
+    }
   }
 }).$mount('#app')
