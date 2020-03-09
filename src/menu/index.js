@@ -18,13 +18,23 @@ export const menuHeader = [
   },
   {
     path: '/course',
-    title: '课程管理',
+    title: '课程',
     icon: 'flask'
   },
   {
     path: '/video',
-    title: '视频管理',
-    icon: 'play-circle'
+    title: '视频',
+    icon: 'video-camera'
+  },
+  {
+    path: '/order',
+    title: '订单',
+    icon: 'cny'
+  },
+  {
+    path: '/plan',
+    title: 'Plan管理',
+    icon: 'bars'
   },
   {
     path: '/course',
