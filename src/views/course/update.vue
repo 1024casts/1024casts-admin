@@ -1,7 +1,7 @@
 <template>
   <d2-container>
     <page-edit
-      state="create"
+      state="update"
       :loading="loading">
     </page-edit>
   </d2-container>
@@ -11,7 +11,7 @@
 import { getCourseList } from '@/api/course'
 
 export default {
-  name: 'course-create',
+  name: 'course-update',
   components: {
     'PageEdit': () => import('./components/PageEdit')
   },
@@ -19,7 +19,6 @@ export default {
     return {
       // 加载状态
       loading: true
-
     }
   },
   mounted () {

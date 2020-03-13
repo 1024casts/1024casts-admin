@@ -162,11 +162,11 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
-    handleEdit(index, row) {
-      console.log(index, row);
+    handleEdit (index, row) {
+      console.log(index, row)
     },
-    handleDelete(index, row) {
-      console.log(index, row);
+    handleDelete (index, row) {
+      console.log(index, row)
     }
   }
 }

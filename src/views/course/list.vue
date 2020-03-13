@@ -22,9 +22,9 @@ export default {
   // name 值和本页的 $route.name 一致才可以缓存页面
   name: 'course-list',
   components: {
-    'PageHeader': () => import('./componnets/PageHeader'),
-    'PageMain': () => import('./componnets/PageMain'),
-    'PageFooter': () => import('./componnets/PageFooter')
+    'PageHeader': () => import('./components/PageHeader'),
+    'PageMain': () => import('./components/PageMain'),
+    'PageFooter': () => import('./components/PageFooter')
   },
   data () {
     return {

@@ -33,7 +33,7 @@ export default {
       default: true
     }
   },
-  data() {
+  data () {
     return {
       sizes: [10, 25, 50, 100, 250, 500],
       layout: 'total, sizes, prev, pager, next, jumper',
@@ -44,7 +44,7 @@ export default {
     ...mapActions('careyshop/db', [
       'databasePage'
     ]),
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.databasePage({ user: true })
         .then(res => {
           res.set('size', val).write()
@@ -56,7 +56,7 @@ export default {
         total: this.total
       })
     },
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.$emit('change', {
         current: val,
         size: this.size,
