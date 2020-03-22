@@ -1,5 +1,4 @@
 import course from './modules/course'
-import video from './modules/video'
 
 import layoutHeaderAside from '@/layout/header-aside'
 
@@ -51,8 +50,7 @@ const frameIn = [
       }
     ]
   },
-  course,
-  video
+  course
 ]
 
 /**

@@ -37,6 +37,8 @@ export default {
       }
     }
   },
+  activated () {
+  },
   methods: {
     handlePaginationChange (val) {
       this.$notify({
@@ -55,18 +57,12 @@ export default {
     },
     handleSubmit (form) {
       this.loading = true
-      this.$notify({
-        title: '开始请求表格数据'
-      })
       getCourseList({
         ...form,
         ...this.page
       })
         .then(res => {
           this.loading = false
-          this.$notify({
-            title: '表格数据请求完毕'
-          })
           this.table = res.list
           this.page.pageTotal = res.totalCount
         })

@@ -29,15 +29,6 @@ export default {
         ...meta,
         title: '课程列表'
       }
-    },
-    {
-      path: 'create',
-      name: `${pre}create`,
-      component: _import('course/create'),
-      meta: {
-        ...meta,
-        title: '添加课程'
-      }
     }
   ])('course-')
 }

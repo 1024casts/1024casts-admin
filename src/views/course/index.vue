@@ -31,11 +31,13 @@ export default {
       table: [],
       loading: false,
       page: {
-        pageCurrent: 1,
+        page: 1,
         pageSize: 10,
         pageTotal: 0
       }
     }
+  },
+  activated () {
   },
   methods: {
     handlePaginationChange (val) {
@@ -44,7 +46,7 @@ export default {
         message: `当前第${val.current}页 共${val.total}条 每页${val.size}条`
       })
       this.page = {
-        pageCurrent: val.current,
+        page: val.current,
         pageSize: val.size,
         pageTotal: val.total
       }
@@ -55,20 +57,14 @@ export default {
     },
     handleSubmit (form) {
       this.loading = true
-      this.$notify({
-        title: '开始请求表格数据'
-      })
       getCourseList({
         ...form,
         ...this.page
       })
         .then(res => {
           this.loading = false
-          this.$notify({
-            title: '表格数据请求完毕'
-          })
           this.table = res.list
-          this.page.pageTotal = res.page.total
+          this.page.pageTotal = res.totalCount
         })
         .catch(err => {
           this.loading = false

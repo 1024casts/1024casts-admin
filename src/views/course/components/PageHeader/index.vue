@@ -7,6 +7,13 @@
     size="mini"
     style="margin-bottom: -18px;">
 
+    <el-form-item label="课程名称" prop="name">
+      <el-input
+        v-model="form.name"
+        placeholder="课程名称"
+        style="width: 150px;"/>
+    </el-form-item>
+
     <el-form-item label="更新状态" prop="update_status">
       <el-select
         v-model="form.update_status"
@@ -18,13 +25,6 @@
         <el-option label="更新中" value="2"/>
         <el-option label="已完结" value="3"/>
       </el-select>
-    </el-form-item>
-
-    <el-form-item label="课程名称" prop="name">
-      <el-input
-        v-model="form.name"
-        placeholder="课程名称"
-        style="width: 100px;"/>
     </el-form-item>
 
     <el-form-item>
@@ -43,7 +43,6 @@
         重置
       </el-button>
     </el-form-item>
-
   </el-form>
 </template>
 
