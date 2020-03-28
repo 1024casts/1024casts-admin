@@ -41,10 +41,10 @@ export default {
   },
   methods: {
     handlePaginationChange (val) {
-      this.$notify({
-        title: '分页变化',
-        message: `当前第${val.current}页 共${val.total}条 每页${val.size}条`
-      })
+      // this.$notify({
+      //   title: '分页变化',
+      //   message: `当前第${val.current}页 共${val.total}条 每页${val.size}条`
+      // })
       this.page = {
         page: val.current,
         pageSize: val.size,

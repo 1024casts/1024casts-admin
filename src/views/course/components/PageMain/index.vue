@@ -28,17 +28,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="封面" width="150" align="center">
-        <template slot-scope="scope">
-          <el-image :src=scope.row.cover_url lazy>
-            <div slot="placeholder" class="image-slot">
-              加载中<span class="dot">...</span>
-            </div>
-          </el-image>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="名称" width="260" align="center">
+      <el-table-column label="名称" width="360" align="center">
         <template slot-scope="scope">
             {{scope.row.name}}
         </template>
@@ -54,12 +44,15 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="发布状态" width="80" align="center">
+      <el-table-column label="发布状态" width="160" align="center">
         <template slot-scope="scope">
           <el-switch
             v-model="scope.row.is_publish"
-            active-color="#13ce66"
-            inactive-color="#ff4949">
+            active-text="上线"
+            inactive-text="下线"
+            :active-value="1"
+            :inactive-value="0"
+            @change="handleCoursePublishStatus($event, scope.row)">
           </el-switch>
         </template>
       </el-table-column>
@@ -190,16 +183,6 @@
             <el-radio-button label="2">更新中</el-radio-button>
             <el-radio-button label="3">已完结</el-radio-button>
           </el-radio-group>
-        </el-form-item>
-
-        <el-form-item
-          label="是否发布"
-          prop="is_publish">
-          <el-switch
-            v-model="form.is_publish"
-            active-value=1
-            inactive-value=0>
-          </el-switch>
         </el-form-item>
 
         <el-form-item size="small">
@@ -415,7 +398,7 @@
 </template>
 
 <script>
-import { addCourse, updateCourse, getSectionList, getVideoList, addVideo, updateVideo } from '@api/course'
+import { addCourse, updateCourse, updateCoursePublishStatus, getSectionList, getVideoList, addVideo, updateVideo } from '@api/course'
 // import BooleanControl from '../BooleanControl'
 // import BooleanControlMini from '../BooleanControlMini'
 export default {
@@ -473,8 +456,7 @@ export default {
         cover_url: '',
         cover_key: '',
         content: '',
-        update_status: 0,
-        is_publish: 0
+        update_status: 0
       },
       rules: {
         name: [
@@ -584,8 +566,8 @@ export default {
         ],
         content: [
           {
-            max: 60,
-            message: '长度不能大于 60 个字符',
+            max: 500,
+            message: '长度不能大于 500 个字符',
             trigger: 'blur'
           }
         ]
@@ -636,6 +618,7 @@ export default {
       addCourse({ ...this.form })
         .then(res => {
           this.$message.success('操作成功')
+          this.dialogEditCourse = false
         })
         .finally(() => {
           this.dialogLoading = false
@@ -648,6 +631,7 @@ export default {
       updateCourse({ ...this.form })
         .then(res => {
           this.$message.success('操作成功')
+          this.dialogEditCourse = false
         })
         .finally(() => {
           this.dialogLoading = false
@@ -762,7 +746,6 @@ export default {
       addVideo({ ...this.videoForm })
         .then(res => {
           this.$message.success('操作成功')
-
         })
         .finally(() => {
           this.dialogLoading = false
@@ -817,6 +800,16 @@ export default {
         this.$message.error('上传视频大小不能超过 50MB!')
       }
       return isLt50M
+    },
+    handleCoursePublishStatus (isPublish, row) {
+      console.log('event', isPublish)
+      updateCoursePublishStatus({ ...row })
+        .then(res => {
+          this.$message.success('操作成功')
+        })
+        .finally(() => {
+          this.dialogLoading = false
+        })
     }
   }
 }

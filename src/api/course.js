@@ -53,6 +53,14 @@ export function updateCourse (data) {
   })
 }
 
+export function updateCoursePublishStatus (data) {
+  return request({
+    url: '/courses/' + data.id + '/updatePublish',
+    method: 'put',
+    data
+  })
+}
+
 /**
  * 获取视频列表
  * @param {object} params

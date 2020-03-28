@@ -6,20 +6,20 @@ const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
 const meta = { auth: true }
 
 export default {
-  path: '/course',
-  name: 'course',
+  path: '/order',
+  name: 'order',
   meta,
-  redirect: { name: 'course-index' },
+  redirect: { name: 'order-index' },
   component: layoutHeaderAside,
   children: (pre => [
     {
       path: 'index',
       name: `${pre}index`,
-      component: _import('course/index'),
+      component: _import('order/index'),
       meta: {
         ...meta,
-        title: '课程首页'
+        title: '订单首页'
       }
     }
-  ])('course-')
+  ])('order-')
 }

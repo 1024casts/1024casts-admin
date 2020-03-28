@@ -17,10 +17,10 @@
 </template>
 
 <script>
-import { getCourseList } from '@api/course'
+import { getOrderList } from '@api/order'
 export default {
   // name 值和本页的 $route.name 一致才可以缓存页面
-  name: 'course-list',
+  name: 'order-list',
   components: {
     'PageHeader': () => import('./components/PageHeader'),
     'PageMain': () => import('./components/PageMain'),
@@ -41,10 +41,10 @@ export default {
   },
   methods: {
     handlePaginationChange (val) {
-      this.$notify({
-        title: '分页变化',
-        message: `当前第${val.current}页 共${val.total}条 每页${val.size}条`
-      })
+      // this.$notify({
+      //   title: '分页变化',
+      //   message: `当前第${val.current}页 共${val.total}条 每页${val.size}条`
+      // })
       this.page = {
         page: val.current,
         pageSize: val.size,
@@ -57,7 +57,7 @@ export default {
     },
     handleSubmit (form) {
       this.loading = true
-      getCourseList({
+      getOrderList({
         ...form,
         ...this.page
       })

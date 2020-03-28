@@ -7,23 +7,23 @@
     size="mini"
     style="margin-bottom: -18px;">
 
-    <el-form-item label="课程名称" prop="name">
+    <el-form-item label="订单号" prop="name">
       <el-input
-        v-model="form.name"
-        placeholder="课程名称"
-        style="width: 200px;"/>
+        v-model="form.id"
+        placeholder="订单号"
+        style="width: 250px;"/>
     </el-form-item>
 
-    <el-form-item label="更新状态" prop="update_status">
+    <el-form-item label="支付状态" prop="update_status">
       <el-select
-        v-model="form.update_status"
-        placeholder="状态选择"
-        style="width: 100px;">
-        <el-option label="全部" value="-1"/>
-        <el-option label="新建" value="0"/>
-        <el-option label="预告" value="1"/>
-        <el-option label="更新中" value="2"/>
-        <el-option label="已完结" value="3"/>
+        v-model="form.status"
+        placeholder="支付选择"
+        style="width: 120px;">
+        <el-option label="全部" value="all"/>
+        <el-option label="新建" value="pending"/>
+        <el-option label="已支付" value="paid"/>
+        <el-option label="已取消" value="canceled"/>
+        <el-option label="已完成" value="completed"/>
       </el-select>
     </el-form-item>
 
@@ -51,7 +51,8 @@ export default {
   data () {
     return {
       form: {
-        update_status: '-1',
+        name: '',
+        status: 'all',
         user: '',
         key: '',
         note: ''
@@ -66,7 +67,6 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.$emit('submit', this.form)
-          this.$message.success('操作成功')
         } else {
           this.$notify.error({
             title: '错误',
