@@ -2,11 +2,13 @@
 // 课程
 import course from './modules/course'
 import order from './modules/order'
+import system from './modules/system'
 
 // 菜单 侧边栏
 export const menuAside = [
   course,
-  order
+  order,
+  system
 ]
 
 // 菜单 顶栏

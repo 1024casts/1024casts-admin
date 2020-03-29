@@ -14,67 +14,65 @@
         width="55">
       </el-table-column>
 
-      <el-table-column label="订单号" width="150">
+      <el-table-column label="ID" width="70">
         <template slot-scope="scope">
           {{scope.row.id}}
         </template>
       </el-table-column>
 
-      <el-table-column label="订单金额" width="80" align="center">
+      <el-table-column label="头像" width="70">
         <template slot-scope="scope">
-            {{scope.row.order_amount}}
+          <el-image
+            style="width: 30px; height: 30px"
+            :src="scope.row.avatar"
+            :fit="fit">
+          </el-image>
         </template>
       </el-table-column>
 
-      <el-table-column label="支付金额" width="80" align="center">
+      <el-table-column label="用户名" align="center">
         <template slot-scope="scope">
-            {{scope.row.pay_amount}}
+            {{scope.row.username}}
         </template>
       </el-table-column>
 
-      <el-table-column label="支付方式" width="80" align="center">
+      <el-table-column label="邮箱" align="center">
         <template slot-scope="scope">
-            {{scope.row.pay_method}}
+            {{scope.row.email}}
         </template>
       </el-table-column>
 
-      <el-table-column label="支付时间" width="160" align="center">
+      <!-- <el-table-column label="个人网站" width="180" align="center">
         <template slot-scope="scope">
-            {{scope.row.paid_at}}
+            {{scope.row.persnal_website}}
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
-      <el-table-column label="支付状态" width="100" align="center">
+      <el-table-column label="状态">
         <template slot-scope="scope">
           <el-tag
             size="mini"
-            :type="payStatusMap[scope.row.status].type">
-            {{payStatusMap[scope.row.status].text}}
+            :type="statusMap[scope.row.status].type">
+            {{statusMap[scope.row.status].text}}
           </el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column label="创建时间" width="140">
+      <el-table-column label="注册时间">
         <template slot-scope="scope">
           {{scope.row.created_at}}
         </template>
       </el-table-column>
 
-      <el-table-column label="更新时间" width="140">
+      <el-table-column label="最后登录IP">
         <template slot-scope="scope">
-          {{scope.row.updated_at}}
+          {{scope.row.last_login_ip}}
         </template>
       </el-table-column>
 
-      <el-table-column label="取消时间" width="140">
+      <el-table-column label="最后登录时间">
         <template slot-scope="scope">
-          {{scope.row.canceled_at}}
-        </template>
-      </el-table-column>
-
-      <el-table-column label="完成时间" width="140">
-        <template slot-scope="scope">
-          {{scope.row.completed_at}}
+          {{scope.row.last_login_time}}
         </template>
       </el-table-column>
 
@@ -101,22 +99,14 @@ export default {
       dialogLoading: false,
       currentTableData: [],
       multipleSelection: [],
-      payStatusMap: {
-        'pending': {
-          text: '新建',
-          type: 'info'
+      statusMap: {
+        0: {
+          text: '未激活',
+          type: 'warning'
         },
-        'paid': {
-          text: '已支付',
+        1: {
+          text: '已激活',
           type: 'success'
-        },
-        'canceled': {
-          text: '已取消',
-          type: 'warn'
-        },
-        'completed': {
-          text: '已完结',
-          type: 'info'
         }
       }
     }
