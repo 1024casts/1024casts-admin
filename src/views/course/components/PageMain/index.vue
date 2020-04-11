@@ -28,7 +28,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="名称" width="360" align="center">
+      <el-table-column label="名称" width="260" align="center">
         <template slot-scope="scope">
             {{scope.row.name}}
         </template>
@@ -195,9 +195,10 @@
     <!-- 章节form -->
     <el-dialog :title="sectionFormTitle" :visible.sync="dialogEditSection" width="80%">
       <el-form
-        ref="form"
+        ref="sectionForm"
         :model="sectionForm"
         label-width="80px">
+        <input type="hidden" v-model="sectionForm.courseId" />
 
         <el-form-item
           label="名称"
@@ -218,7 +219,7 @@
         </el-form-item>
 
         <el-form-item size="small">
-          <el-button type="primary" :loading="dialogLoading" @click="handleCourseConfirm">{{stateButton[state]}}</el-button>
+          <el-button type="primary" :loading="dialogLoading" @click="handleSectionConfirm">{{stateButton[state]}}</el-button>
           <el-button @click="handleSectionFormClose">取消</el-button>
         </el-form-item>
       </el-form>
@@ -293,7 +294,7 @@
           prop="video_key">
           <el-upload
             class="avatar-uploader"
-            action="http://127.0.0.1:8081/v1/upload/video"
+            action="http://127.0.0.1:8081/v1/qiniu/video"
             accept="'.mp4'"
             :show-file-list="false"
             :on-success="handleVideoSuccess"
@@ -343,8 +344,11 @@
     </el-dialog>
 
     <el-dialog title="章节管理" :visible.sync="dialogSectionVisible" width="80%">
+      <el-row>
+        <el-button type="primary" size="small" @click="handleAddSection()">添加章节</el-button>
+      </el-row>
       <el-table :data="sectionGridData">
-        <el-table-column property="name" label="名称" width="150"></el-table-column>
+        <el-table-column property="name" label="名称" width="200"></el-table-column>
         <el-table-column property="weight" label="排序值"></el-table-column>
         <el-table-column property="created_at" label="创建时间"></el-table-column>
         <el-table-column property="updated_at" label="更新时间"></el-table-column>
@@ -398,7 +402,7 @@
 </template>
 
 <script>
-import { addCourse, updateCourse, updateCoursePublishStatus, getSectionList, getVideoList, addVideo, updateVideo } from '@api/course'
+import { addCourse, updateCourse, updateCoursePublishStatus, getSectionList, addSection, updateSection, getVideoList, addVideo, updateVideo } from '@api/course'
 // import BooleanControl from '../BooleanControl'
 // import BooleanControlMini from '../BooleanControlMini'
 export default {
@@ -494,12 +498,16 @@ export default {
         ]
       },
       sectionForm: {
+        id: undefined,
         name: '',
-        weight: 0
+        weight: 0,
+        courseId: 0
       },
       dialogEditCourse: false,
-      dialogSectionVisible: false,
 
+      // section
+      sectionState: false,
+      dialogSectionVisible: false,
       dialogEditSection: false,
       sectionFormTitle: '添加章节',
       sectionGridData: [],
@@ -666,17 +674,16 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
+    // 获取章节列表
     handleSection (row) {
       console.log(row)
+      this.sectionForm.courseId = row.id
       this.dialogSectionVisible = true
       getSectionList({
         ...row
       })
         .then(res => {
           this.loading = false
-          this.$notify({
-            title: '章节数据请求完毕'
-          })
           this.sectionGridData = res.list
         })
         .catch(err => {
@@ -687,12 +694,52 @@ export default {
           console.log('err', err)
         })
     },
+    handleAddSection () {
+      this.sectionFormTitle = '添加章节'
+      this.dialogEditSection = true
+      this.sectionState = 'create'
+    },
     handleEditSection (index, row) {
-      console.log(index, row)
+      console.log('handleEditSection:', index, row)
       this.sectionFormTitle = '编辑' + row.name
+      this.dialogEditSection = true
+      this.sectionState = 'update'
+      this.sectionForm = row
     },
     handleSectionFormClose () {
       this.dialogEditSection = false
+    },
+    // 确认新增或修改
+    handleSectionConfirm () {
+      this.$refs.sectionForm.validate(valid => {
+        if (valid) {
+          this.dialogLoading = true
+          this.sectionState === 'create' ? this.handleCreateSection() : this.handleUpdateSection()
+        }
+      })
+    },
+    // 新增section
+    handleCreateSection () {
+      addSection({ ...this.sectionForm })
+        .then(res => {
+          this.$message.success('操作成功')
+          this.dialogEditSection = false
+        })
+        .finally(() => {
+          this.dialogLoading = false
+        })
+    },
+    // 更新section
+    handleUpdateSection () {
+      console.log('handleUpdateSection:', this.sectionForm)
+      updateSection({ ...this.sectionForm })
+        .then(res => {
+          this.$message.success('操作成功')
+          this.dialogEditSection = false
+        })
+        .finally(() => {
+          this.dialogLoading = false
+        })
     },
     handleDelete (index, row) {
       console.log(index, row)

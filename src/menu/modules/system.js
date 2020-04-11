@@ -15,20 +15,8 @@ export default {
     },
     {
       path: `${pre}qiniu/index`,
-      title: '七牛管理',
-      icon: 'suitcase',
-      children: ([
-        {
-          path: `${pre}qiniu/upload`,
-          title: '上传图片',
-          icon: 'upload'
-        },
-        {
-          path: `${pre}qiniu/index`,
-          title: '资源管理',
-          icon: 'file'
-        }
-      ])
+      title: '七牛资源管理',
+      icon: 'suitcase'
     }
   ])('/system/')
 }

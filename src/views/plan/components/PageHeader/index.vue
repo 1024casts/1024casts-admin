@@ -2,34 +2,28 @@
   <el-form
     :inline="true"
     :model="form"
+    :rules="rules"
     ref="form"
     size="mini"
     style="margin-bottom: -18px;">
 
-    <el-form-item label="Bucket" prop="bucket">
-      <el-select
-        v-model="form.bucket"
-        placeholder="选择"
-        style="width: 180px;">
-        <el-option label="线上-public" value="public-phpcasts"/>
-        <el-option label="线上-私有" value="phpcasts"/>
-        <el-option label="本地测试" value="test"/>
-        <el-option label="本地测试-公开" value="test-public"/>
-        <el-option label="数据库备份-私有" value="backup"/>
-      </el-select>
+    <el-form-item label="订单号" prop="name">
+      <el-input
+        v-model="form.id"
+        placeholder="订单号"
+        style="width: 250px;"/>
     </el-form-item>
 
-    <el-form-item label="资源前缀" prop="prefix">
+    <el-form-item label="支付状态" prop="update_status">
       <el-select
-        v-model="form.prefix"
-        placeholder="选择"
-        style="width: 140px;">
-        <el-option label="全部" value=""/>
-        <el-option label="图片带/" value="/uploads/image"/>
-        <el-option label="图片不带/" value="uploads/image"/>
-        <el-option label="视频带/" value="/uploads/video"/>
-        <el-option label="视频不带/" value="uploads/video"/>
-        <el-option label="数据库" value="DB_"/>
+        v-model="form.status"
+        placeholder="支付选择"
+        style="width: 120px;">
+        <el-option label="全部" value="all"/>
+        <el-option label="新建" value="pending"/>
+        <el-option label="已支付" value="paid"/>
+        <el-option label="已取消" value="canceled"/>
+        <el-option label="已完成" value="completed"/>
       </el-select>
     </el-form-item>
 
@@ -57,8 +51,14 @@ export default {
   data () {
     return {
       form: {
-        bucket: '',
-        prefix: ''
+        name: '',
+        status: 'all',
+        user: '',
+        key: '',
+        note: ''
+      },
+      rules: {
+        type: [ { required: true, message: '请选择一个状态', trigger: 'change' } ]
       }
     }
   },

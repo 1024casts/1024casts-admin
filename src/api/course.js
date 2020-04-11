@@ -18,8 +18,27 @@ export function getCourseList (params) {
  */
 export function getSectionList (params) {
   return request({
-    url: '/courses/' + params.id + '/sections',
+    url: '/sections/' + params.id,
     method: 'get'
+  })
+}
+
+export function addSection (data) {
+  data.course_id = data.courseId
+  data.weight = parseInt(data.weight)
+  return request({
+    url: '/sections/' + data.courseId,
+    method: 'post',
+    data
+  })
+}
+
+export function updateSection (data) {
+  data.weight = parseInt(data.weight)
+  return request({
+    url: '/sections/' + data.id,
+    method: 'put',
+    data
   })
 }
 

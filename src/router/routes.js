@@ -1,5 +1,6 @@
 import course from './modules/course'
 import order from './modules/order'
+import plan from './modules/plan'
 import system from './modules/system'
 
 import layoutHeaderAside from '@/layout/header-aside'
@@ -54,6 +55,7 @@ const frameIn = [
   },
   course,
   order,
+  plan,
   system
 ]
 
