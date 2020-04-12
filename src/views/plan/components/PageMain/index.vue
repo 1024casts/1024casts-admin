@@ -247,7 +247,7 @@ export default {
             trigger: 'blur'
           }
         ]
-      },
+      }
     }
   },
   watch: {
@@ -259,9 +259,6 @@ export default {
     }
   },
   methods: {
-    handleClose () {
-
-    },
     handleSwitchChange (val, index) {
       const oldValue = this.currentTableData[index]
       this.$set(this.currentTableData, index, {
@@ -319,7 +316,7 @@ export default {
         .finally(() => {
           this.dialogLoading = false
         })
-    },
+    }
   }
 }
 </script>
