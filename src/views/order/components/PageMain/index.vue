@@ -14,37 +14,37 @@
         width="55">
       </el-table-column>
 
-      <el-table-column label="订单号" width="150">
+      <el-table-column label="订单号">
         <template slot-scope="scope">
           {{scope.row.id}}
         </template>
       </el-table-column>
 
-      <el-table-column label="订单金额" width="80" align="center">
+      <el-table-column label="订单金额" align="center">
         <template slot-scope="scope">
             {{scope.row.order_amount}}
         </template>
       </el-table-column>
 
-      <el-table-column label="支付金额" width="80" align="center">
+      <el-table-column label="支付金额" align="center">
         <template slot-scope="scope">
             {{scope.row.pay_amount}}
         </template>
       </el-table-column>
 
-      <el-table-column label="支付方式" width="80" align="center">
+      <el-table-column label="支付方式" align="center">
         <template slot-scope="scope">
             {{scope.row.pay_method}}
         </template>
       </el-table-column>
 
-      <el-table-column label="支付时间" width="160" align="center">
+      <el-table-column label="支付时间" align="center">
         <template slot-scope="scope">
             {{scope.row.paid_at}}
         </template>
       </el-table-column>
 
-      <el-table-column label="支付状态" width="100" align="center">
+      <el-table-column label="支付状态" align="center">
         <template slot-scope="scope">
           <el-tag
             size="mini"
@@ -54,7 +54,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="创建时间" width="140">
+      <el-table-column label="创建时间">
         <template slot-scope="scope">
           {{scope.row.created_at}}
         </template>
@@ -63,18 +63,6 @@
       <el-table-column label="更新时间" width="140">
         <template slot-scope="scope">
           {{scope.row.updated_at}}
-        </template>
-      </el-table-column>
-
-      <el-table-column label="取消时间" width="140">
-        <template slot-scope="scope">
-          {{scope.row.canceled_at}}
-        </template>
-      </el-table-column>
-
-      <el-table-column label="完成时间" width="140">
-        <template slot-scope="scope">
-          {{scope.row.completed_at}}
         </template>
       </el-table-column>
 

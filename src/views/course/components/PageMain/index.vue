@@ -381,8 +381,30 @@
       <el-table :data="videoGridData" max-height="500">
         <el-table-column property="name" label="名称" width="150"></el-table-column>
         <el-table-column property="course_id" label="课程id"></el-table-column>
-        <el-table-column property="is_free" label="是否免费"></el-table-column>
-        <el-table-column property="duration" label="时长"></el-table-column>
+        <el-table-column property="is_free" label="是否免费">
+          <template slot-scope="scope">
+            <el-tag
+              size="mini"
+              :type="isFreeMap[scope.row.is_free].type">
+              {{isFreeMap[scope.row.is_free].text}}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column property="duration" label="时长">
+          <template slot-scope="scope">
+            {{ scope.row.duration }}
+          </template>
+        </el-table-column>
+        <el-table-column property="is_publish" label="是否发布">
+          <template slot-scope="scope">
+            <el-tag
+              size="mini"
+              :type="isPublishMap[scope.row.is_publish].type">
+              {{isPublishMap[scope.row.is_publish].text}}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column property="published_at" label="发布时间"></el-table-column>
         <el-table-column property="created_at" label="创建时间"></el-table-column>
         <el-table-column property="updated_at" label="更新时间"></el-table-column>
         <el-table-column
@@ -447,6 +469,26 @@ export default {
         },
         3: {
           text: '已完结',
+          type: 'success'
+        }
+      },
+      isFreeMap: {
+        0: {
+          text: '否',
+          type: 'warn'
+        },
+        1: {
+          text: '是',
+          type: 'success'
+        }
+      },
+      isPublishMap: {
+        0: {
+          text: '否',
+          type: 'warn'
+        },
+        1: {
+          text: '是',
           type: 'success'
         }
       },
